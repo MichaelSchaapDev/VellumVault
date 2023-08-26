@@ -34,7 +34,7 @@ VellumVault is a Library Management System built with Python and Django. It foll
 
 1. Clone this repository:
     ```bash
-    git clone https://github.com/yourusername/VellumVault.git
+    git clone https://github.com/MichaelSchaapDev/VellumVault.git
     ```
 
 2. Navigate to the project directory:
