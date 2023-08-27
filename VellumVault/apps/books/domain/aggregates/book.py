@@ -1,5 +1,6 @@
 from ....shared.domain.events.handlers import event_bus
 from ..events.book_borrowed import BookBorrowed
+from ..events.book_returned import BookReturned
 from ..value_objects.isbn import ISBN
 from datetime import datetime
 
@@ -40,4 +41,10 @@ class Book:
         if self.status == "available":
             self.status = "borrowed"
             event = BookBorrowed(book_id=self.book_id, timestamp=datetime.now())
+            event_bus.dispatch(event)
+
+    def return_book(self):
+        if self.status == "borrowed":
+            self.status = "available"
+            event = BookReturned(book_id=self.book_id, timestamp=datetime.now())
             event_bus.dispatch(event)
