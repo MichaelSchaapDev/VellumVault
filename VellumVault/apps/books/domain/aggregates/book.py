@@ -2,7 +2,7 @@ from ....shared.domain.events.handlers import event_bus
 from ..events.book_borrowed import BookBorrowed
 from ..events.book_returned import BookReturned
 from ..value_objects.isbn import ISBN
-from datetime import datetime
+from datetime import datetime, timedelta
 
 class Book:
     def __init__(self, book_id: int, title: str, isbn: ISBN, status: str = "available"):
@@ -16,6 +16,7 @@ class Book:
         self.title = title
         self.isbn = isbn
         self.status = status
+        self.due_date = None
 
     def change_title(self, new_title: str):
         """
@@ -40,11 +41,19 @@ class Book:
     def borrow(self):
         if self.status == "available":
             self.status = "borrowed"
+            self.due_date = datetime.now() + timedelta(days=14)  # Calculate due date
             event = BookBorrowed(book_id=self.book_id, timestamp=datetime.now())
             event_bus.dispatch(event)
 
     def return_book(self):
         if self.status == "borrowed":
             self.status = "available"
+            self.due_date = None  # Reset the due date to None
             event = BookReturned(book_id=self.book_id, timestamp=datetime.now())
             event_bus.dispatch(event)
+
+    def is_overdue(self):
+        """Check if the book is overdue."""
+        if self.status != "borrowed" or self.due_date is None:
+            return False
+        return datetime.now() > self.due_date
