@@ -5,6 +5,9 @@ class Book:
         if not title:
             raise ValueError("Title cannot be empty")
 
+        if not isbn:
+            raise ValueError("ISBN cannot be empty")
+        
         self.book_id = book_id
         self.title = title
         self.isbn = isbn
