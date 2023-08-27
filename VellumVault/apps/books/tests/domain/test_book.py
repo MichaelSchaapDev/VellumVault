@@ -49,3 +49,14 @@ def test_book_borrowed_event():
     book.borrow()
     
     assert book.status == "borrowed"
+
+# Test that a book's status transitions correctly when borrowed and returned.
+def test_book_status_transitions():
+    isbn = ISBN("978-1-86197-271-2")
+    book = Book(book_id=1, title="Domain-Driven Design", isbn=isbn)
+    
+    book.borrow()
+    assert book.status == "borrowed"
+    
+    book.return_book()
+    assert book.status == "available"
