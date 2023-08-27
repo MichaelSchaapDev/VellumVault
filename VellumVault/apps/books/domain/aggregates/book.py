@@ -1,7 +1,10 @@
+from ....shared.domain.events.handlers import event_bus
+from ..events.book_borrowed import BookBorrowed
 from ..value_objects.isbn import ISBN
+from datetime import datetime
 
 class Book:
-    def __init__(self, book_id: int, title: str, isbn: ISBN):
+    def __init__(self, book_id: int, title: str, isbn: ISBN, status: str = "available"):
         if not title:
             raise ValueError("Title cannot be empty")
 
@@ -11,6 +14,7 @@ class Book:
         self.book_id = book_id
         self.title = title
         self.isbn = isbn
+        self.status = status
 
     def change_title(self, new_title: str):
         """
@@ -31,3 +35,9 @@ class Book:
         :type new_isbn: ISBN
         """
         self.isbn = new_isbn
+
+    def borrow(self):
+        if self.status == "available":
+            self.status = "borrowed"
+            event = BookBorrowed(book_id=self.book_id, timestamp=datetime.now())
+            event_bus.dispatch(event)
