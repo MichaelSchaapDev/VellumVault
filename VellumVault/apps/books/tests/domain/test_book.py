@@ -69,3 +69,13 @@ def test_due_date_calculation():
     
     book.borrow()
     assert book.due_date == datetime.now() + timedelta(days=14)
+
+# Test to check if a book is marked as overdue after the due date.
+def test_overdue_book():
+    isbn = ISBN("978-1-86197-271-2")
+    book = Book(book_id=1, title="Domain-Driven Design", isbn=isbn)
+    
+    book.borrow()
+    book.due_date = datetime.now() - timedelta(days=1)  # Manually setting the due date to the past
+    
+    assert book.is_overdue()
