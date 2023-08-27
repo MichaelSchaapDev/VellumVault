@@ -42,6 +42,11 @@ def test_create_book_with_empty_title():
     with pytest.raises(ValueError):
         Book(book_id=1, title="", isbn=isbn)
 
+# Test for creating a book with an empty ISBN. Should raise a ValueError.
+def test_create_book_with_empty_isbn():
+    with pytest.raises(ValueError):
+        Book(book_id=1, title="Some Title", isbn=ISBN(""))
+
 # Test for domain event BookBorrowed, assuming such an event exists in your domain model.
 def test_book_borrowed_event():
     isbn = ISBN("978-1-86197-271-2")
