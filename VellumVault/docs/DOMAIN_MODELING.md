@@ -51,7 +51,7 @@ Represents the action of borrowing a book by a user.
 A unique identifier for each book.
 
 - **Attributes**:
-  - `isbn_number`: The ISBN number.
+  - `isbn`: The ISBN number.
 
 ### Address
 
