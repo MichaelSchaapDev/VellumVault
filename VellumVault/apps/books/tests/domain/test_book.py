@@ -2,6 +2,7 @@ import pytest
 from VellumVault.apps.books.domain.aggregates.book import Book
 from VellumVault.apps.books.domain.value_objects.isbn import ISBN
 
+# Test for successfully creating a book with valid attributes
 def test_book_creation():
     isbn = ISBN("978-3-16-148410-0")
     book = Book(book_id=1, title="Domain-Driven Design", isbn=isbn)
@@ -9,3 +10,19 @@ def test_book_creation():
     assert book.book_id == 1
     assert book.title == "Domain-Driven Design"
     assert book.isbn == isbn
+
+# Test for ISBN validation. Should raise a ValueError for an invalid ISBN.
+def test_invalid_isbn_creation():
+    with pytest.raises(ValueError):
+        ISBN("invalid-isbn")
+
+# Test for changing a book's ISBN to a new valid ISBN.
+def test_change_book_attributes():
+    isbn = ISBN("978-1-86197-271-2")
+    book = Book(book_id=1, title="Domain-Driven Design", isbn=isbn)
+    
+    new_isbn = ISBN("978-0-596-52068-7")
+    book.change_isbn(new_isbn)
+    
+    assert book.isbn == new_isbn
+
