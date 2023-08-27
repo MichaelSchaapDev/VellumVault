@@ -1,6 +1,7 @@
 import pytest
 from VellumVault.apps.books.domain.aggregates.book import Book
 from VellumVault.apps.books.domain.value_objects.isbn import ISBN
+from datetime import datetime, timedelta
 
 # Test for successfully creating a book with valid attributes
 def test_book_creation():
@@ -60,3 +61,11 @@ def test_book_status_transitions():
     
     book.return_book()
     assert book.status == "available"
+
+# Test that a due date is set/updated correctly when a book is borrowed.
+def test_due_date_calculation():
+    isbn = ISBN("978-1-86197-271-2")
+    book = Book(book_id=1, title="Domain-Driven Design", isbn=isbn)
+    
+    book.borrow()
+    assert book.due_date == datetime.now() + timedelta(days=14)
