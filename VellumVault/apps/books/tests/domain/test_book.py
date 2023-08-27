@@ -26,3 +26,10 @@ def test_change_book_attributes():
     
     assert book.isbn == new_isbn
 
+# Test for attempting to change a book's title to an empty string. Should raise a ValueError.
+def test_change_book_to_invalid_title():
+    isbn = ISBN("978-1-86197-271-2")
+    book = Book(book_id=1, title="Domain-Driven Design", isbn=isbn)
+
+    with pytest.raises(ValueError):
+        book.change_title("")
