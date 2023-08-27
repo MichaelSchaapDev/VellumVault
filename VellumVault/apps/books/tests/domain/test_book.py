@@ -33,3 +33,19 @@ def test_change_book_to_invalid_title():
 
     with pytest.raises(ValueError):
         book.change_title("")
+
+# Test for creating a book with an empty title. Should raise a ValueError.
+def test_create_book_with_empty_title():
+    isbn = ISBN("978-1-86197-271-2")
+
+    with pytest.raises(ValueError):
+        Book(book_id=1, title="", isbn=isbn)
+
+# Test for domain event BookBorrowed, assuming such an event exists in your domain model.
+def test_book_borrowed_event():
+    isbn = ISBN("978-1-86197-271-2")
+    book = Book(book_id=1, title="Domain-Driven Design", isbn=isbn)
+    
+    book.borrow()
+    
+    assert book.status == "borrowed"
