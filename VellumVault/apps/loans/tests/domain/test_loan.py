@@ -1,9 +1,9 @@
 import pytest
-from apps.loans.domain.entities import Loan
-from apps.users.domain.aggregates import User
-from apps.users.domain.value_objects import Address
-from apps.books.domain.aggregates import Book
-from apps.books.domain.value_objects import ISBN
+from VellumVault.apps.loans.domain.entities.loan import Loan
+from VellumVault.apps.users.domain.aggregates.user import User
+from VellumVault.apps.users.domain.value_objects.address import Address
+from VellumVault.apps.books.domain.aggregates.book import Book
+from VellumVault.apps.books.domain.value_objects.isbn import ISBN
 
 def test_loan_creation():
     # Create a User

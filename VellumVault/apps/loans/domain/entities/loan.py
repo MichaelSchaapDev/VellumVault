@@ -1,5 +1,5 @@
-from apps.users.domain.aggregates import User
-from apps.books.domain.aggregates import Book
+from VellumVault.apps.users.domain.aggregates.user import User
+from VellumVault.apps.books.domain.aggregates.book import Book
 
 class Loan:
     def __init__(self, loan_id: int, user: User, book: Book, due_date: str):

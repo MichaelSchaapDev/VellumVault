@@ -1,6 +1,6 @@
 import pytest
-from apps.books.domain.aggregates import Book
-from apps.books.domain.value_objects import ISBN
+from VellumVault.apps.books.domain.aggregates.book import Book
+from VellumVault.apps.books.domain.value_objects.isbn import ISBN
 
 def test_book_creation():
     isbn = ISBN("978-3-16-148410-0")

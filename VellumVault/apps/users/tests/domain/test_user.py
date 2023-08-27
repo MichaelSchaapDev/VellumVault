@@ -1,6 +1,6 @@
 import pytest
-from apps.users.domain.aggregates import User
-from apps.users.domain.value_objects import Address
+from VellumVault.apps.users.domain.aggregates.user import User
+from VellumVault.apps.users.domain.value_objects.address import Address
 
 def test_user_creation():
     address = Address("123 Main St", "Springfield", "IL", "62704")
