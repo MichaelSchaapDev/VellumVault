@@ -1,4 +1,4 @@
-from VellumVault.apps.users.domain.value_objects.address import Address
+from ..value_objects.address import Address
 
 class User:
     def __init__(self, user_id: int, name: str, address: Address):
