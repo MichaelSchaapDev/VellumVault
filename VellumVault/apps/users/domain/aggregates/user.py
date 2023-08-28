@@ -18,3 +18,6 @@ class User:
         self.overdue_notification_sent = True
         event = OverdueNotificationSent(user=self, timestamp=datetime.now())
         event_bus.dispatch(event)
+
+    def reset_overdue_notification(self):
+        self.overdue_notification_sent = False    
