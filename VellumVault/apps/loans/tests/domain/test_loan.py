@@ -1,5 +1,5 @@
 import pytest
-from VellumVault.apps.loans.domain.entities.loan import Loan
+from VellumVault.apps.loans.domain.aggregate.loan import Loan
 from VellumVault.apps.users.domain.aggregates.user import User
 from VellumVault.apps.users.domain.value_objects.address import Address
 from VellumVault.apps.books.domain.aggregates.book import Book
