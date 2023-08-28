@@ -22,3 +22,13 @@ def test_create_user_with_empty_name():
 def test_create_user_with_invalid_address():
     with pytest.raises(ValueError):
         Address(street="", city="Cityville", state="State", zip_code="12345")
+
+# Test for domain event OverdueNotificationSent, assuming such an event exists in your domain model.
+def test_overdue_notification_sent_event():
+    address = Address(street="123 Main St", city="Cityville", state="State", zip_code="12345")
+    user = User(user_id=1, name="John Doe", address=address)
+    
+    # Simulate sending overdue notification
+    user.send_overdue_notification()
+    
+    assert user.overdue_notification_sent
