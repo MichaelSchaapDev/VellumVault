@@ -2,10 +2,18 @@ import pytest
 from VellumVault.apps.users.domain.aggregates.user import User
 from VellumVault.apps.users.domain.value_objects.address import Address
 
+# Test for successfully creating a user with valid attributes
 def test_user_creation():
-    address = Address("123 Main St", "Springfield", "IL", "62704")
+    address = Address(street="123 Main St", city="Cityville", state="State", zip_code="12345")
     user = User(user_id=1, name="John Doe", address=address)
 
     assert user.user_id == 1
     assert user.name == "John Doe"
     assert user.address == address
+
+# Test for attempting to create a user with an empty name. Should raise a ValueError.
+def test_create_user_with_empty_name():
+    address = Address(street="123 Main St", city="Cityville", state="State", zip_code="12345")
+
+    with pytest.raises(ValueError):
+        User(user_id=1, name="", address=address)
