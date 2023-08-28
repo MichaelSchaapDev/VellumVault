@@ -43,3 +43,10 @@ def test_user_overdue_notification_status():
     
     user.reset_overdue_notification()
     assert not user.overdue_notification_sent
+
+# Test that a user's borrowed book count is initially zero.
+def test_initial_borrowed_book_count():
+    address = Address(street="123 Main St", city="Cityville", state="State", zip_code="12345")
+    user = User(user_id=1, name="John Doe", address=address)
+    
+    assert user.borrowed_book_count() == 0
