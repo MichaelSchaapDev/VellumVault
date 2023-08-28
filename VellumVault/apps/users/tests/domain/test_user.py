@@ -17,3 +17,8 @@ def test_create_user_with_empty_name():
 
     with pytest.raises(ValueError):
         User(user_id=1, name="", address=address)
+
+# Test for attempting to create a user with an invalid address. Should raise a ValueError.
+def test_create_user_with_invalid_address():
+    with pytest.raises(ValueError):
+        Address(street="", city="Cityville", state="State", zip_code="12345")
