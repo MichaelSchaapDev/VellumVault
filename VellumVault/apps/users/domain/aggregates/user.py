@@ -12,6 +12,7 @@ class User:
         self.name = name
         self.address = address
         self.overdue_notification_sent = False
+        self.borrowed_books = []
 
     def send_overdue_notification(self):
         # Simulate sending an overdue notification
@@ -20,4 +21,7 @@ class User:
         event_bus.dispatch(event)
 
     def reset_overdue_notification(self):
-        self.overdue_notification_sent = False    
+        self.overdue_notification_sent = False
+
+    def borrowed_book_count(self):
+        return len(self.borrowed_books)    
