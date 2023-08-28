@@ -32,3 +32,14 @@ def test_overdue_notification_sent_event():
     user.send_overdue_notification()
     
     assert user.overdue_notification_sent
+
+# Test that a user's overdue notification status is set/reset correctly.
+def test_user_overdue_notification_status():
+    address = Address(street="123 Main St", city="Cityville", state="State", zip_code="12345")
+    user = User(user_id=1, name="John Doe", address=address)
+    
+    user.send_overdue_notification()
+    assert user.overdue_notification_sent
+    
+    user.reset_overdue_notification()
+    assert not user.overdue_notification_sent
