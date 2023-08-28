@@ -3,8 +3,8 @@ from VellumVault.apps.books.domain.aggregates.book import Book
 from VellumVault.apps.books.domain.value_objects.isbn import ISBN
 from datetime import datetime, timedelta
 
-# Test for successfully creating a book with valid attributes
 def test_book_creation():
+    """Test that a Book object can be successfully created with valid attributes."""
     isbn = ISBN("978-3-16-148410-0")
     book = Book(book_id=1, title="Domain-Driven Design", isbn=isbn)
 
@@ -12,13 +12,13 @@ def test_book_creation():
     assert book.title == "Domain-Driven Design"
     assert book.isbn == isbn
 
-# Test for ISBN validation. Should raise a ValueError for an invalid ISBN.
 def test_invalid_isbn_creation():
+    """Test that creating an ISBN with an invalid string raises a ValueError."""
     with pytest.raises(ValueError):
         ISBN("invalid-isbn")
 
-# Test for changing a book's ISBN to a new valid ISBN.
 def test_change_book_attributes():
+    """Test that a Book's ISBN can be successfully updated."""
     isbn = ISBN("978-1-86197-271-2")
     book = Book(book_id=1, title="Domain-Driven Design", isbn=isbn)
     
@@ -27,28 +27,28 @@ def test_change_book_attributes():
     
     assert book.isbn == new_isbn
 
-# Test for attempting to change a book's title to an empty string. Should raise a ValueError.
 def test_change_book_to_invalid_title():
+    """Test that attempting to set a Book's title to an empty string raises a ValueError."""
     isbn = ISBN("978-1-86197-271-2")
     book = Book(book_id=1, title="Domain-Driven Design", isbn=isbn)
 
     with pytest.raises(ValueError):
         book.change_title("")
 
-# Test for creating a book with an empty title. Should raise a ValueError.
 def test_create_book_with_empty_title():
+    """Test that attempting to create a Book with an empty title raises a ValueError."""
     isbn = ISBN("978-1-86197-271-2")
 
     with pytest.raises(ValueError):
         Book(book_id=1, title="", isbn=isbn)
 
-# Test for creating a book with an empty ISBN. Should raise a ValueError.
 def test_create_book_with_empty_isbn():
+    """Test that attempting to create a Book with an empty ISBN raises a ValueError."""
     with pytest.raises(ValueError):
         Book(book_id=1, title="Some Title", isbn=ISBN(""))
 
-# Test for domain event BookBorrowed, assuming such an event exists in your domain model.
 def test_book_borrowed_event():
+    """Test that the 'borrow' method changes the Book's status to 'borrowed'."""
     isbn = ISBN("978-1-86197-271-2")
     book = Book(book_id=1, title="Domain-Driven Design", isbn=isbn)
     
@@ -56,8 +56,8 @@ def test_book_borrowed_event():
     
     assert book.status == "borrowed"
 
-# Test that a book's status transitions correctly when borrowed and returned.
 def test_book_status_transitions():
+    """Test that the Book's status transitions correctly between 'borrowed' and 'available'."""
     isbn = ISBN("978-1-86197-271-2")
     book = Book(book_id=1, title="Domain-Driven Design", isbn=isbn)
     
@@ -67,16 +67,16 @@ def test_book_status_transitions():
     book.return_book()
     assert book.status == "available"
 
-# Test that a due date is set/updated correctly when a book is borrowed.
 def test_due_date_calculation():
+    """Test that the due date is set correctly when a book is borrowed."""
     isbn = ISBN("978-1-86197-271-2")
     book = Book(book_id=1, title="Domain-Driven Design", isbn=isbn)
     
     book.borrow()
     assert book.due_date == datetime.now() + timedelta(days=14)
 
-# Test to check if a book is marked as overdue after the due date.
 def test_overdue_book():
+    """Test that a book is marked as overdue if its due date has passed."""
     isbn = ISBN("978-1-86197-271-2")
     book = Book(book_id=1, title="Domain-Driven Design", isbn=isbn)
     
